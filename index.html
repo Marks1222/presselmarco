@@ -6,14 +6,14 @@
 
   // tenta abrir o app via esquema nativo
   try {
-    window.location.href = 'whatsapp://chat?code=Kz30wATEJHWIvKtvF8DnxS';
+    window.location.href = 'whatsapp://chat?code=KBvcYEahdRxJWSLRPBelMU';
     opened = true;
   } catch(e) {}
 
   // fallback para Android (intent)
   setTimeout(function() {
     if (!opened) {
-      window.location.href = 'intent://chat.whatsapp.com/Kz30wATEJHWIvKtvF8DnxS#Intent;package=com.whatsapp;scheme=https;end';
+      window.location.href = 'intent://chat.whatsapp.com/KBvcYEahdRxJWSLRPBelMU#Intent;package=com.whatsapp;scheme=https;end';
       opened = true;
     }
   }, 700);
@@ -21,10 +21,10 @@
   // fallback final (web, caso nenhum app tenha sido aberto)
   setTimeout(function() {
     if (!opened) {
-      window.location.replace('https://chat.whatsapp.com/Kz30wATEJHWIvKtvF8DnxS');
+      window.location.replace('https://chat.whatsapp.com/KBvcYEahdRxJWSLRPBelMU');
     }
   }, 1800);
 })();
 </script>
 
-<script>window.location.href = 'https://chat.whatsapp.com/Kz30wATEJHWIvKtvF8DnxS';</script></head><body></body></html>
+<script>window.location.href = 'https://chat.whatsapp.com/KBvcYEahdRxJWSLRPBelMU';</script></head><body></body></html>
