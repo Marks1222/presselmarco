@@ -1,31 +1,49 @@
-
-<html><head>Pronto — aqui está o script com todos os links/tokens trocados pelo novo grupo:
-
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Abrir grupo WhatsApp</title>
 <script>
-(function() {
-  var opened = false; // trava para não executar várias vezes
+(function(){
+  var inviteCode = 'Kz30wATEJHWIvKtvF8DnxS';
+  var httpsLink = 'https://chat.whatsapp.com/' + inviteCode;
+  var nativeScheme = 'whatsapp://chat?code=' + inviteCode;
+  var intentLink = 'intent://chat.whatsapp.com/' + inviteCode + '#Intent;package=com.whatsapp;scheme=https;end';
 
-  // tenta abrir o app via esquema nativo
-  try {
-    window.location.href = 'whatsapp://chat?code=Kz30wATEJHWIvKtvF8DnxS';
-    opened = true;
-  } catch(e) {}
+  var opened = false;
 
-  // fallback para Android (intent)
-  setTimeout(function() {
-    if (!opened) {
-      window.location.href = 'intent://chat.whatsapp.com/Kz30wATEJHWIvKtvF8DnxS#Intent;package=com.whatsapp;scheme=https;end';
-      opened = true;
-    }
+  function onVisibilityChange() {
+    if (document.hidden || document.visibilityState === 'hidden') opened = true;
+  }
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
+  function tryOpenNative() {
+    try {
+      var ifr = document.createElement('iframe');
+      ifr.style.display = 'none';
+      ifr.src = nativeScheme;
+      document.body.appendChild(ifr);
+      setTimeout(function(){ try { ifr.parentNode.removeChild(ifr); } catch(e){} }, 1000);
+    } catch(e){}
+  }
+
+  tryOpenNative();
+
+  setTimeout(function(){
+    if (!opened) window.location.href = intentLink;
   }, 700);
 
-  // fallback final (web, caso nenhum app tenha sido aberto)
-  setTimeout(function() {
-    if (!opened) {
-      window.location.replace('https://chat.whatsapp.com/Kz30wATEJHWIvKtvF8DnxS');
-    }
-  }, 1800);
+  setTimeout(function(){
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    if (!opened) window.location.replace(httpsLink);
+  }, 1500);
 })();
 </script>
-
-<script>window.location.href = 'https://chat.whatsapp.com/Kz30wATEJHWIvKtvF8DnxS';</script></head><body></body></html>
+</head>
+<body>
+<p style="font-family:Arial,sans-serif;font-size:14px;text-align:center;margin-top:40px;">
+  Abrindo grupo do WhatsApp... se nada acontecer, <a href="https://chat.whatsapp.com/Kz30wATEJHWIvKtvF8DnxS">clique aqui</a>.
+</p>
+</body>
+</html>
